@@ -2,10 +2,16 @@
 
 随机密码生成器与管理方案。
 
-## Setup for VSCode
+## Dev notes
+
+### Formatting
+
+It should be using `LLVM` format style.
+
+### Setup for VSCode
 
 Install MSYS2 (with clang) and Arduino IDE, then setup
-  `.vscode/c_cpp_properties.json` with the following content:
+`.vscode/c_cpp_properties.json` with the following content:
 
 ```json
 {
@@ -40,4 +46,4 @@ Install MSYS2 (with clang) and Arduino IDE, then setup
 ```
 
 Note: replace `C:/Program Files (x86)/Arduino` if you installed to a non-default
-  location.
+location.
