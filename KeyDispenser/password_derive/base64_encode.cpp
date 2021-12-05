@@ -1,10 +1,21 @@
 #include "base64_encode.h"
 #include "common.h"
 
-static const char encode_table[65] = "ABCDEfGhiJKlMnopqrsTUVWxyz"
-                                     "!$%^&*()[]{}_-=:@;',.<>?|~"
-                                     "0123456789"
-                                     "+/";
+#if __has_include("password_config.local.h")
+#include "password_config.local.h"
+#endif
+
+#define BASE64_DEFAULT_TABLE_BODY                                              \
+  "ABCDEfGhiJKlMnopqrsTUVWxyz"                                                 \
+  "!$%^&*()[]{}_-=:@;',.<>?|~"                                                 \
+  "0123456789"                                                                 \
+  "+/"
+
+#ifndef BASE64_TABLE_BODY
+#define BASE64_TABLE_BODY BASE64_DEFAULT_TABLE_BODY
+#endif
+
+static const char encode_table[65] = ;
 
 /**
  * @brief encode 16 bytes into printable string
