@@ -6,4 +6,5 @@
 #include "password_derive/derive.cpp"
 #include "password_derive/storage.cpp"
 
+#include "pin_monitor/pin_monitor.cpp"
 #include "serial_reader/serial_reader.cpp"

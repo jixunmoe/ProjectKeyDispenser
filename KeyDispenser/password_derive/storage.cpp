@@ -6,14 +6,14 @@
 #include <EEPROM.h>
 #endif
 
-void save_password(const uint8_t *password) {
-  for (uint8_t i = 0; i < PASSWORD_LEN; i++) {
+void save_password(const uint8_t *password, size_t len) {
+  for (int i = 0; i < len; i++) {
     EEPROM.update(EEPROM_PASSWORD_ADDRESS + i, password[i]);
   }
 }
 
-void read_password(uint8_t *password) {
-  for (uint8_t i = 0; i < PASSWORD_LEN; i++) {
+void read_password(uint8_t *password, size_t len) {
+  for (int i = 0; i < len; i++) {
     EEPROM.get(EEPROM_PASSWORD_ADDRESS + i, password[i]);
   }
 }

@@ -1,12 +1,14 @@
 #include "commands.h"
+#include "password.h"
 #include "password_derive/admin_password.h"
 #include "password_derive/base64_encode.h"
 #include "password_derive/crc32.h"
 #include "password_derive/derive.h"
 #include "password_derive/storage.h"
 
+#include <Keyboard.h>
+
 bool authenticated = false;
-uint8_t password[PASSWORD_LEN];
 
 #define AUTHENTICATION_CHECK()                                                 \
   if (!authenticated) {                                                        \
@@ -32,7 +34,7 @@ bool command_help(serial_reader_ctx *ctx) {
   return true;
 }
 
-void init_commands() { read_password(password); }
+void init_commands() { read_password(password, PASSWORD_LEN); }
 
 bool command_lock(serial_reader_ctx *ctx) {
   authenticated = false;
@@ -43,8 +45,8 @@ bool command_lock(serial_reader_ctx *ctx) {
 bool command_derive_key(serial_reader_ctx *ctx) {
   AUTHENTICATION_CHECK();
 
-  derive(password);
-  save_password(password);
+  derive(password, PASSWORD_LEN);
+  save_password(password, PASSWORD_LEN);
   Serial.println("... secret has been set!");
   return true;
 }
@@ -72,9 +74,9 @@ bool command_set_secret(serial_reader_ctx *ctx) {
   if (serial_read_buffer(ctx, PASSWORD_LEN)) {
     Serial.println("");
     Serial.println("read ok, new secret applied.");
-    derive((uint8_t *)ctx->buffer);
+    derive((uint8_t *)ctx->buffer, PASSWORD_LEN);
     memcpy(password, ctx->buffer, PASSWORD_LEN);
-    save_password(password);
+    save_password(password, PASSWORD_LEN);
     return true;
   }
 

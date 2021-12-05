@@ -1,5 +1,5 @@
 #pragma once
 #include <stdint.h>
+#include <stddef.h>
 
-// 16 chars
-void derive(uint8_t *password);
+void derive(uint8_t *password, size_t len);

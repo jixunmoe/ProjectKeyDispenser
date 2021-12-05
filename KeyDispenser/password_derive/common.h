@@ -1,8 +1,5 @@
 #pragma once
 
-// Length of internal password size
-#define PASSWORD_LEN (16)
-
 // simple base64 encode with some twists
 #define ENCODE_SOURCE_SIZE (12)
 // ENCODE_DEST_SIZE = (ENCODE_SOURCE_SIZE / 3 * 4)
