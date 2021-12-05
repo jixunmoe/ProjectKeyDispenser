@@ -31,13 +31,15 @@ Answer a few questions:
 // enter password (16 char): secure_password!
 // enter salt (at least 8 char): *q3ajiWUBm*T%4uw
 // enter iter count (recommand: 1024; min: 128): 1024
-// save output to: KeyDispenser/password_derive/password_config.local.h
+// please save the following to: KeyDispenser/password_derive/password_config.local.h
 // password is: secure_password!
 #define ADMIN_PWD_SALT R"_(*q3ajiWUBm*T%4uw)_"
 #define ADMIN_PWD_SALT_SIZE (16)
 #define ADMIN_PASSWORD_ITER (1024)
 #define ADMIN_CRC32_HASH (0x866f1848)
 ```
+
+Save the output above to `KeyDispenser/password_derive/password_config.local.h`.
 
 ### Local compile config
 
@@ -56,8 +58,6 @@ Save & update the following content to `config.local.h` before compile.
 //   1 - run it
 #define RUN_SELF_TEST (0)
 ```
-
-Save the output above to `KeyDispenser/password_derive/password_config.local.h`.
 
 ### Commands
 
