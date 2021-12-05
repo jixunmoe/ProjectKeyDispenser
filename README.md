@@ -97,7 +97,7 @@ See [Admin password setup](#admin-password-setup) for information.
 ##### Syntax
 
 ```text
-!auth <admin password>
+!auth <admin password (16 char)>
 ```
 
 Example output:
@@ -106,6 +106,24 @@ Example output:
 !auth
 enter admin password: 0123456789ABCDEF
 password ok!
+```
+
+#### `set_secret`
+
+Use this command when you'd like to reset your secret.
+
+##### Syntax
+
+```text
+!set_secret <new secret (16 char)>
+```
+
+Example output:
+
+```text
+!set_secret
+input 16 chars as your new secret: 0123456789ABCDEF
+read ok, new secret applied.
 ```
 
 #### `derive`
