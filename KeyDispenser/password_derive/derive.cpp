@@ -20,10 +20,10 @@ void derive(uint8_t *password) {
   derive_masks masks;
   auto password_ptr = (derive_masks *)(password);
   for (int i = 0; i < DERIVE_ITER_COUNT; i++) {
-    masks.dword[0] = crc32(password, SRC_SIZE, CRC_START_0);
-    masks.dword[1] = crc32(password, SRC_SIZE, CRC_START_1);
-    masks.dword[2] = crc32(password, SRC_SIZE, CRC_START_2);
-    masks.dword[3] = crc32(password, SRC_SIZE, CRC_START_3);
+    masks.dword[0] = crc32(password, PASSWORD_LEN, CRC_START_0);
+    masks.dword[1] = crc32(password, PASSWORD_LEN, CRC_START_1);
+    masks.dword[2] = crc32(password, PASSWORD_LEN, CRC_START_2);
+    masks.dword[3] = crc32(password, PASSWORD_LEN, CRC_START_3);
 
     password_ptr->qword[0] ^= masks.qword[0];
     password_ptr->qword[1] ^= masks.qword[1];

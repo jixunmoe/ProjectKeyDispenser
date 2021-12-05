@@ -91,3 +91,23 @@ void serial_process_event(serial_reader_ctx *ctx) {
     }
   }
 }
+
+bool serial_read_buffer(serial_reader_ctx *ctx, uint8_t target_size) {
+  auto read_size = Serial.available();
+  if (read_size > 0) {
+    int remaining_bytes = target_size - ctx->buffer_pointer;
+    if (remaining_bytes < 0) {
+      Serial.println("input overflow, stop processing.");
+      return true;
+    }
+
+    if (read_size > remaining_bytes) {
+      read_size = remaining_bytes;
+    }
+
+    ctx->buffer_pointer +=
+        Serial.readBytes(&ctx->buffer[ctx->buffer_pointer], read_size);
+  }
+
+  return ctx->buffer_pointer >= target_size;
+}

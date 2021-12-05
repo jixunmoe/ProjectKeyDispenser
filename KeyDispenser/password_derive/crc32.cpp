@@ -1,6 +1,10 @@
 #include "crc32.h"
 #include "common.h"
 
+#ifdef VSCODE_COMPAT
+#include "mock/pgmspace.h"
+#endif
+
 static const uint32_t crc32_table[256] PROGMEM = {
     0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F,
     0xE963A535, 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988,
@@ -46,14 +50,17 @@ static const uint32_t crc32_table[256] PROGMEM = {
     0x54DE5729, 0x23D967BF, 0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94,
     0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D};
 
-uint32_t crc32(const uint8_t *data, int data_length, uint32_t start) {
+uint32_t crc32(const void *data, int data_length, uint32_t start) {
   uint32_t crc32 = start;
 
   for (uint8_t i = 0; i < data_length; i++) {
-    const uint32_t idx = uint8_t(crc32) ^ data[i];
+    const uint32_t idx =
+        uint8_t(crc32) ^ reinterpret_cast<const uint8_t *>(data)[i];
     // CRCTable is an array of 256 32-bit constants
     crc32 = (crc32 >> 8) ^ pgm_read_dword_near(&crc32_table[idx]);
   }
+
+  crc32 ^= 0xFFFFFFFF;
 
   return crc32;
 }
